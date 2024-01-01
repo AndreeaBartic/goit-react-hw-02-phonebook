@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
 import { nanoid } from 'nanoid';
+import React, { Component } from 'react';
 
 const INITIAL_STATE = { name: '', number: '' };
 class ContactForm extends Component {
@@ -12,41 +12,45 @@ class ContactForm extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    alert('You clicked me!');
+    console.log(this.state);
+    const newContact = {
+      id: nanoid(),
+      name: this.state.name,
+      number: this.state.number,
+    };
+    this.props.onAddContact(newContact);
+    this.setState({ ...INITIAL_STATE });
   };
-  InputId = nanoid();
+
   render() {
     const { name, number } = this.state;
+
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label>
-          Name
-          <input
-            id={this.InputId}
-            onChange={this.handleChange}
-            value={name}
-            type="text"
-            name="name"
-            pattern="^[a-zA-Z]+(([' -][a-zA-Z ])?[a-zA-Z]*)*$"
-            title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-            required
-          />
-        </label>
-        <label>
-          Number
-          <input
-            id={this.InputId}
-            onChange={this.handleChange}
-            value={number}
-            type="tel"
-            name="number"
-            pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-            title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-            required
-          />
-        </label>
-        <button type="submit">Add Contact</button>
-      </form>
+      <div>
+        <form onSubmit={this.handleSubmit}>
+          <label>
+            Name
+            <input
+              onChange={this.handleChange}
+              value={name}
+              type="text"
+              name="name"
+              required
+            />
+          </label>
+          <label>
+            Number
+            <input
+              onChange={this.handleChange}
+              value={number}
+              type="tel"
+              name="number"
+              required
+            />
+          </label>
+          <button type="submit">Add Contact</button>
+        </form>
+      </div>
     );
   }
 }

@@ -1,16 +1,17 @@
 import React from 'react';
-import { nanoid } from 'nanoid';
 
-const ContactList = ({ contacts }) => {
-  loginInputId = nanoid();
+const ContactList = ({ contacts, onRemoveContact }) => {
   return (
-    <ul>
-      {contacts.map(contact => {
-        <li key={loginInputId}>
-          {contact.name}: {contact.number}
-        </li>;
-      })}{' '}
-    </ul>
+    <>
+      <ul>
+        {contacts.map(contact => (
+          <li key={contact.id}>
+            {contact.name}: {contact.number}
+            <button onClick={() => onRemoveContact(contact.id)}>Delete</button>
+          </li>
+        ))}
+      </ul>
+    </>
   );
 };
 
